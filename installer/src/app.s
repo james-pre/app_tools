@@ -81,6 +81,7 @@ _fix_relocations:
 	.equ	ti.curCol, 0xD00596
 	.equ	ti.textInverse, 3
 	.equ	ti.textFlags, 5
+	.equ	ti.ClearRect, 0x021218
 	.equ	ti.PutS, 0x0207C0
 	.equ	ti.GetCSC, 0x02014C
 	.equ	ti.skRight, 0x03
@@ -98,6 +99,19 @@ _confirm:
 	pop	af
 	push	af
 	ld	(ti.curRow), a
+	ld	b, a
+	add	a, a
+	add	a, a
+	add	a, b
+	add	a, a
+	add	a, a
+	add	a, 37
+	ld	b, a
+	add	a, 17
+	ld	c, a
+	ld	hl, 72
+	ld	de, 253
+	call	ti.ClearRect
 	ld	hl, 6
 	ld.sis	(ti.curCol & $FFFF), hl
 	ld	hl, .L.option_yes
